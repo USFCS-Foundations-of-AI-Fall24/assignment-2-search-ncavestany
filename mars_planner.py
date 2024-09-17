@@ -24,9 +24,12 @@ class RoverState :
         self.charged=charged
         self.prev = None
 
-    ## you do this.
+    ## Returns true if the two states are identical
     def __eq__(self, other):
-       pass
+       return (self.loc == other.loc and 
+               self.sample_extracted == other.sample_extracted and 
+               self.holding_sample == other.holding_sample and 
+               self.charged == other.charged)
 
 
     def __repr__(self):
