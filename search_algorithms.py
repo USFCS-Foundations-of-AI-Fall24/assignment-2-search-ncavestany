@@ -23,7 +23,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
             return next_state
         else :
             successors = next_state[0].successors(action_list)
-            state_counter += 1
+            state_counter += len(successors)
             if use_closed_list :
                 successors = [item for item in successors
                                     if item[0] not in closed_list]
@@ -62,7 +62,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             return next_state
         else :
             successors = next_state[0].successors(action_list)
-            stateCounter += 1
+            stateCounter += len(successors)
             if use_closed_list :
                 successors = [item for item in successors
                                     if item[0] not in closed_list]
