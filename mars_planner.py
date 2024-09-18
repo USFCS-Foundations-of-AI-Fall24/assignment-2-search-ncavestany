@@ -133,6 +133,9 @@ def sample_goal(state) :
 def station_goal(state) :
     return state.loc == "station"
 
+def remove_sample_goal(state) :
+    return state.sample_extracted
+
 
 # Return true if the sample is dropped off, the rover is at the station, and the rover is charged
 def mission_complete(state) :
@@ -153,7 +156,7 @@ if __name__=="__main__" :
     move_to_sample_result = breadth_first_search(s, action_list, sample_goal) # Trying to get to the sample from the start
     print("Move to sample result: ", move_to_sample_result, "\n\n")
     
-    remove_sample_result = breadth_first_search(move_to_sample_result[0], action_list, station_goal) # Trying to remove the sample while at the sample
+    remove_sample_result = breadth_first_search(move_to_sample_result[0], action_list, remove_sample_goal) # Trying to remove the sample while at the sample
     print("Remove sample result: ", remove_sample_result, "\n\n")
     
     return_to_charger_result = breadth_first_search(remove_sample_result[0], action_list, battery_goal) # Trying to return to the charger after removing the sample
