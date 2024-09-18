@@ -58,7 +58,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             while ptr is not None :
                 ptr = ptr.prev
                 print(ptr)
-            print("Depth first search state counter: ", stateCounter)
+            print("Depth first/limited search state counter: ", stateCounter)
             return next_state
         else :
             successors = next_state[0].successors(action_list)
@@ -73,7 +73,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             search_queue.extend(successors)
             
     # If the search finishes without finding the goal
-    print("Depth first search state counter (goal not found): ", stateCounter)
+    print("Depth first/limited search state counter (goal not found): ", stateCounter)
 
 
 
