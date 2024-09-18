@@ -48,7 +48,8 @@ def h1(state) :
 
 ## you do this - return the straight-line distance between the state and (1,1)
 def sld(state) :
-    sqt(a^ + b2)
+    loc = state.location.split(",")
+    return sqrt((int(loc[0]) - 1)**2 + (int(loc[1]) - 1)**2) # SLD between the current location and the goal (1,1)
 
 ## you implement this. Open the file filename, read in each line,
 ## construct a Graph object and assign it to self.mars_graph().
