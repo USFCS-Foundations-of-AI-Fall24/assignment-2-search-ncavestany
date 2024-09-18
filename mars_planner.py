@@ -147,8 +147,8 @@ if __name__=="__main__" :
     dfs_result = depth_first_search(s, action_list, mission_complete)
     print("DFS result: ", dfs_result, "\n\n")
     
-    dls_result = depth_first_search(s, action_list, mission_complete, limit=5)
-    print("DLS result: ", dls_result, "\nLimit: 5 \n\n")
+    dls_result = depth_first_search(s, action_list, mission_complete, limit=10)
+    print("DLS result: ", dls_result, "\nLimit: 10 \n\n")
     
     move_to_sample_result = breadth_first_search(s, action_list, sample_goal) # Trying to get to the sample from the start
     print("Move to sample result: ", move_to_sample_result, "\n\n")
