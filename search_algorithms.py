@@ -14,11 +14,11 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
         next_state = search_queue.popleft()
         if goal_test(next_state[0]):
             print("Goal found")
-            print(next_state)
+            # print(next_state)
             ptr = next_state[0]
             while ptr is not None :
                 ptr = ptr.prev
-                print(ptr)
+                # print(ptr)
             print("Breadth first search state counter: ", state_counter)
             return next_state
         else :
@@ -53,12 +53,15 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
         
         if goal_test(next_state[0]):
             print("Goal found")
-            print(next_state)
+            # print(next_state)
             ptr = next_state[0]
             while ptr is not None :
                 ptr = ptr.prev
-                print(ptr)
-            print("Depth first/limited search state counter: ", stateCounter)
+                # print(ptr)
+            if limit > 0:
+                print("Depth limited search state counter: ", stateCounter)
+            else:
+                print("Depth first search state counter: ", stateCounter)
             return next_state
         else :
             successors = next_state[0].successors(action_list)
@@ -73,7 +76,10 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             search_queue.extend(successors)
             
     # If the search finishes without finding the goal
-    print("Depth first/limited search state counter (goal not found): ", stateCounter)
+    if limit > 0:
+        print("Depth limited search state counter (goal not found): ", stateCounter)
+    else:
+        print("Depth first search state counter (goal not found): ", stateCounter)
 
 
 
