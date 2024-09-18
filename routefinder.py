@@ -1,5 +1,6 @@
 from queue import PriorityQueue
 from Graph import *
+from math import sqrt
 
 class map_state() :
     ## f = total estimated cost
@@ -8,7 +9,7 @@ class map_state() :
     def __init__(self, location="", mars_graph=None,
                  prev_state=None, g=0,h=0):
         self.location = location
-        self.mars_graph = mars_graph
+        self.mars_graph = read_mars_graph("mars_graph.txt")
         self.prev_state = prev_state
         self.g = g
         self.h = h
@@ -38,6 +39,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
     closed_list = {}
     search_queue.put(start_state)
     ## you do the rest.
+    
 
 
 ## default heuristic - we can use this to implement uniform cost search
