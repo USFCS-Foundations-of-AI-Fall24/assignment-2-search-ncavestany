@@ -30,7 +30,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
                 for s in successors :
                     closed_list[s[0]] = True
             search_queue.extend(successors)
-    print("Breadth first search state counter: ", state_counter)
+    print("Breadth first search state counter: (goal not found)", state_counter)
     
 
 ### Note the similarity to BFS - the only difference is the search queue
@@ -73,7 +73,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             search_queue.extend(successors)
             
     # If the search finishes without finding the goal
-    print("Depth first search state counter: ", stateCounter)
+    print("Depth first search state counter (goal not found): ", stateCounter)
 
 
 
