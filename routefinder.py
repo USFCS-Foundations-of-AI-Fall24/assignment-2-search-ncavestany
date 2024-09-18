@@ -69,24 +69,8 @@ def read_mars_graph(filename):
                         mars_graph.add_node(dest)
                         
                     edge = Edge(src, dest)
-                    mars_graph.add_edge(edge)
-                    
+                    mars_graph.add_edge(edge)             
     return mars_graph 
     
 
-
-if __name__ == '__main__':
-    # Load the graph from the MarsMap file
-    mars_graph = read_mars_graph("mars_graph.txt")
-    
-    # Print out the nodes and their corresponding edges
-    print("Graph nodes and their edges:")
-    
-    # Iterate over the adjacency list
-    # for node, edges in mars_graph.g.items():
-    #     print(f"Node {node}:")
-    #     for edge in edges:
-    #         print(f"  {edge}")
-    
-    print(mars_graph.get_edges("1,1"))
 
