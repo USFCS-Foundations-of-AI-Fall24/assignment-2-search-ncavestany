@@ -1,4 +1,5 @@
 from queue import PriorityQueue
+from Graph import *
 
 class map_state() :
     ## f = total estimated cost
@@ -50,4 +51,42 @@ def sld(state) :
 ## you implement this. Open the file filename, read in each line,
 ## construct a Graph object and assign it to self.mars_graph().
 def read_mars_graph(filename):
-    pass
+    mars_graph = Graph()
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            elements = line.strip().split(": ") # Split by colon to get the source and destinations separate
+            src = elements[0]
+            
+            if src not in mars_graph.g:
+                mars_graph.add_node(src)
+                
+            if len(elements) > 1: # If there are adjacent nodes
+                destinations = elements[1].split() # Split by space
+                
+                for dest in destinations:
+                    if dest not in mars_graph.g:
+                        mars_graph.add_node(dest)
+                        
+                    edge = Edge(src, dest)
+                    mars_graph.add_edge(edge)
+                    
+    return mars_graph 
+    
+
+
+if __name__ == '__main__':
+    # Load the graph from the MarsMap file
+    mars_graph = read_mars_graph("mars_graph.txt")
+    
+    # Print out the nodes and their corresponding edges
+    print("Graph nodes and their edges:")
+    
+    # Iterate over the adjacency list
+    # for node, edges in mars_graph.g.items():
+    #     print(f"Node {node}:")
+    #     for edge in edges:
+    #         print(f"  {edge}")
+    
+    print(mars_graph.get_edges("1,1"))
+
