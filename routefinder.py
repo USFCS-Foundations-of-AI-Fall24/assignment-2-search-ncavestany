@@ -46,7 +46,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
     while not search_queue.empty():
         current_state = search_queue.get() # Get the node with the lowest f value
         
-        if current_state.is_goal():
+        if goal_test(current_state):
             print("Goal found!")
             print("Total states: ", state_count, "\n")
             return current_state
@@ -115,6 +115,9 @@ def read_mars_graph(filename):
                     edge = Edge(src, dest)
                     mars_graph.add_edge(edge)             
     return mars_graph 
+
+def goal_test(state) :
+    return state.location == "1,1"
 
     
     
