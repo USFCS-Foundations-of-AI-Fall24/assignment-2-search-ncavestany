@@ -48,7 +48,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
         
         if goal_test(current_state):
             print("Goal found!")
-            print("Total states: ", state_count)
+            print("Total states: ", state_count, "\n")
             return current_state
         else:
             # Get all neighboring edges of the current state
@@ -60,14 +60,15 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                 neighbor_state = map_state(location=edge.dest,
                                            mars_graph=current_state.mars_graph, 
                                            prev_state=current_state, 
-                                           g=current_state.g + 1) # Since the edges are unweighted, we increment the cost by a constant 1
+                                           g=current_state.g + 1) # Since the edges are next to each other, we increment the cost by a constant 1
                 
-                neighbor_state.h = heuristic_fn(neighbor_state) # Calculate the heuristic value, which will be SLD
-                neighbor_state.f = neighbor_state.g + neighbor_state.h # Calculate the total cost
+                neighbor_state.h = heuristic_fn(neighbor_state) # Calculate the heuristic value, which will be SLD or UCS (0)
+                neighbor_state.f = neighbor_state.g + neighbor_state.h # Calculate the total cost which is g + h
                 
                 successors.append(neighbor_state)
                 
             state_count += len(successors) # Increment the amount of states found
+
             
             # Filter out the states that have already been visited if we are using a closed list
             if use_closed_list:
@@ -121,9 +122,10 @@ def goal_test(state) :
 if __name__ == '__main__':
     start = map_state(location="8,8", h=sld(map_state(location="8,8"))) # h is the SLD between the start and the goal
     
-    result = a_star(start, sld, goal_test)
+    print("A* results:")
+    a_star_result = a_star(start, sld, goal_test)
     
-    if result:
-        print("Path found!")
-    else:
-        print("No path found.")
+    print("Uniform cost search results:")
+    ucs_result = a_star(start, h1, goal_test)
+    
+    
