@@ -119,13 +119,5 @@ def read_mars_graph(filename):
 def goal_test(state) :
     return state.location == "1,1"
 
-if __name__ == '__main__':
-    start = map_state(location="8,8", h=sld(map_state(location="8,8"))) # h is the SLD between the start and the goal
-    
-    print("A* results:")
-    a_star_result = a_star(start, sld, goal_test)
-    
-    print("Uniform cost search results:")
-    ucs_result = a_star(start, h1, goal_test)
     
     
