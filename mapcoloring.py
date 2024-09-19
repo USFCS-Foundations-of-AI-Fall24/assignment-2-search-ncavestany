@@ -7,6 +7,8 @@ solver = cp_model.CpSolver()
 ## colors: 0: Red, 1: Blue 2: Green
 colors = {0 : 'Red',1:'Blue',2:'Green'}
 
+frequencies = {0: 'f1', 1: 'f2', 2: 'f3'}
+
 SF = model.NewIntVar(0,2,'SF')
 Alameda = model.NewIntVar(0,2,'Alameda')
 Marin = model.NewIntVar(0,2,'Marin')
@@ -17,7 +19,52 @@ Solano = model.NewIntVar(0,2,'Solano')
 Napa = model.NewIntVar(0,2,'Napa')
 Sonoma = model.NewIntVar(0,2,'Sonoma')
 
-Antenna1 = model.NewIntVar(0,2, "A1")
+# Note 0-2 are the possible choices (f1, f2, and f3)
+Antenna1 = model.NewIntVar(0, 2, "A1")
+Antenna2 = model.NewIntVar(0, 2, "A2")
+Antenna3 = model.NewIntVar(0, 2, "A3")
+Antenna4 = model.NewIntVar(0, 2, "A4")
+Antenna5 = model.NewIntVar(0, 2, "A5")
+Antenna6 = model.NewIntVar(0, 2, "A6")
+Antenna7 = model.NewIntVar(0, 2, "A7")
+Antenna8 = model.NewIntVar(0, 2, "A8")
+Antenna9 = model.NewIntVar(0, 2, "A9")
+
+## add the constraints
+model.Add(Antenna1 != Antenna2)
+model.Add(Antenna1 != Antenna3)
+model.Add(Antenna1 != Antenna4)
+
+model.Add(Antenna2 != Antenna1)
+model.Add(Antenna2 != Antenna3)
+model.Add(Antenna2 != Antenna5)
+model.Add(Antenna2 != Antenna6)
+
+model.Add(Antenna3 != Antenna1)
+model.Add(Antenna3 != Antenna2)
+model.Add(Antenna3 != Antenna6)
+model.Add(Antenna3 != Antenna9)
+
+model.Add(Antenna4 != Antenna1)
+model.Add(Antenna4 != Antenna2)
+model.Add(Antenna4 != Antenna5)
+
+model.Add(Antenna5 != Antenna2)
+model.Add(Antenna5 != Antenna4)
+
+model.Add(Antenna6 != Antenna2)
+model.Add(Antenna6 != Antenna7)
+model.Add(Antenna6 != Antenna8)
+
+model.Add(Antenna7 != Antenna6)
+model.Add(Antenna7 != Antenna8)
+
+model.Add(Antenna8 != Antenna7)
+model.Add(Antenna8 != Antenna9)
+
+model.Add(Antenna9 != Antenna3)
+model.Add(Antenna9 != Antenna8)
+
 
 ## add edges
 model.Add(SF != Alameda)
@@ -45,5 +92,15 @@ if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
     print("Santa Clara: %s" % colors[solver.Value(SantaClara)])
     print("San Mateo: %s" % colors[solver.Value(SanMateo)])
     print("Napa: %s" % colors[solver.Value(Napa)])
+    
+    print("Antenna1: %s" % frequencies[solver.Value(Antenna1)])
+    print("Antenna2: %s" % frequencies[solver.Value(Antenna2)])
+    print("Antenna3: %s" % frequencies[solver.Value(Antenna3)])
+    print("Antenna4: %s" % frequencies[solver.Value(Antenna4)])
+    print("Antenna5: %s" % frequencies[solver.Value(Antenna5)])
+    print("Antenna6: %s" % frequencies[solver.Value(Antenna6)])
+    print("Antenna7: %s" % frequencies[solver.Value(Antenna7)])
+    print("Antenna8: %s" % frequencies[solver.Value(Antenna8)])
+    print("Antenna9: %s" % frequencies[solver.Value(Antenna9)])
 
 
