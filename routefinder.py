@@ -35,12 +35,52 @@ class map_state() :
 
 
 def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
-    search_queue = PriorityQueue()
+    search_queue = PriorityQueue() # Stores nodes ordered by their f values
     closed_list = {}
-    search_queue.put(start_state)
-    ## you do the rest.
+    search_queue.put(start_state) 
+    state_count = 0
     
-
+    if use_closed_list:
+        closed_list[start_state] = True # Add the start state to the closed list so we don't revisit
+        
+    while not search_queue.empty():
+        current_state = search_queue.get() # Get the node with the lowest f value
+        
+        if goal_test(current_state):
+            print("Goal found!")
+            print("Total states: ", state_count)
+            return current_state
+        else:
+            # Get all neighboring edges of the current state
+            edges = current_state.mars_graph.get_edges(current_state.location) 
+            successors = [] # Store the neighbors of the current state
+            
+            for edge in edges:
+                # Create a new map state for each neighbor
+                neighbor_state = map_state(location=edge.dest,
+                                           mars_graph=current_state.mars_graph, 
+                                           prev_state=current_state, 
+                                           g=current_state.g + 1) # Since the edges are unweighted, we increment the cost by a constant 1
+                
+                neighbor_state.h = heuristic_fn(neighbor_state) # Calculate the heuristic value, which will be SLD
+                neighbor_state.f = neighbor_state.g + neighbor_state.h # Calculate the total cost
+                
+                successors.append(neighbor_state)
+                
+            state_count += len(successors) # Increment the amount of states found
+            
+            # Filter out the states that have already been visited if we are using a closed list
+            if use_closed_list:
+                successors = [item for item in successors if item not in closed_list]
+            
+            for successor in successors:
+                if successor not in closed_list:
+                    search_queue.put(successor) # Add the successor to the priority queue
+                    if use_closed_list:
+                        closed_list[successor] = True # Mark the state as visited if we are using a closed list
+    print("Goal not found.")                    
+    return None
+                    
 
 ## default heuristic - we can use this to implement uniform cost search
 def h1(state) :
@@ -74,6 +114,16 @@ def read_mars_graph(filename):
                     edge = Edge(src, dest)
                     mars_graph.add_edge(edge)             
     return mars_graph 
+
+def goal_test(state) :
+    return state.location == "1,1"
+
+if __name__ == '__main__':
+    start = map_state(location="8,8", h=sld(map_state(location="8,8"))) # h is the SLD between the start and the goal
     
-
-
+    result = a_star(start, sld, goal_test)
+    
+    if result:
+        print("Path found!")
+    else:
+        print("No path found.")
