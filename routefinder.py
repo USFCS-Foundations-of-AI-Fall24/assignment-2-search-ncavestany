@@ -77,8 +77,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
             for successor in successors:
                 if successor not in closed_list:
                     search_queue.put(successor) # Add the successor to the priority queue
-                    if use_closed_list:
-                        closed_list[successor] = True # Mark the state as visited if we are using a closed list
+                    closed_list[successor] = True # Mark the state as visited
     print("Goal not found.")                    
     return None
                     
