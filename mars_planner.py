@@ -134,7 +134,7 @@ def station_goal(state) :
     return state.loc == "station"
 
 def remove_sample_goal(state) :
-    return state.sample_extracted
+    return state.sample_extracted and state.holding_sample
 
 
 # Return true if the sample is dropped off, the rover is at the station, and the rover is charged
