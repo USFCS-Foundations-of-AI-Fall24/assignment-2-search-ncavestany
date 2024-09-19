@@ -23,7 +23,7 @@ if __name__ == '__main__':
     print("Return to charger result: ", return_to_charger_result, "\n\n")
     
     
-    start = map_state(location="8,8", h=sld(map_state(location="8,8"))) # h is the SLD between the start and the goal
+    start = map_state(location="8,8") 
     
     print("A* results:")
     a_star_result = a_star(start, sld, goal_test)
