@@ -62,7 +62,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                                            prev_state=current_state, 
                                            g=current_state.g + 1) # Since the edges are next to each other, we increment the cost by a constant 1
                 
-                neighbor_state.h = heuristic_fn(neighbor_state) # Calculate the heuristic value, which will be SLD or UCS (0)
+                neighbor_state.h = heuristic_fn(neighbor_state) # Calculate the heuristic value, which will be SLD or 0
                 neighbor_state.f = neighbor_state.g + neighbor_state.h # Calculate the total cost which is g + h
                 
                 successors.append(neighbor_state)

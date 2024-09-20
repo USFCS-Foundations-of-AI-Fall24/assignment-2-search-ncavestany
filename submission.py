@@ -24,10 +24,12 @@ if __name__ == '__main__':
     
     
     start = map_state(location="8,8") 
+    start.h = sld(map_state(location="8,8")) # Heuristic value for the start state in A*
     
     print("A* results:")
     a_star_result = a_star(start, sld, goal_test)
     
+    start.h = 0 # In UCS, the heuristic value is 0
     print("Uniform cost search results:")
     ucs_result = a_star(start, h1, goal_test)
     
